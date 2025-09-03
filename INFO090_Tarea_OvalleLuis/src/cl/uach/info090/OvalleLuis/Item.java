@@ -1,5 +1,7 @@
 package cl.uach.info090.OvalleLuis;
 
+import java.time.LocalDate;
+
 import javax.swing.JButton;
 
 public abstract class Item extends JButton implements Arrendable{
@@ -18,7 +20,8 @@ public abstract class Item extends JButton implements Arrendable{
 	}
 	@Override
 	public void arrendar(String cliente) {
-		
+		LocalDate fecha = LocalDate.now(); 		// da la fecha año mes dia
+		String fecha2 = fecha.toString();
 		
 	}
 	@Override

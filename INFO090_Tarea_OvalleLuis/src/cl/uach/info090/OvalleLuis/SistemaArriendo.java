@@ -13,6 +13,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -8266379086990121043L;
 
 	public SistemaArriendo getInstance() {
+		CreadorBoletaCL boleta = new CreadorBoletaCL();
 		return null;
 	}
 	
