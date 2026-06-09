@@ -7,11 +7,11 @@ public class BoletaCL extends Boleta {
 	private String fechaAct;
 	private String cliente;
 	private String detCobro;
-	private int valorNeto;
-	private int impuesto;
-	private int valorTotal;
+	private double valorNeto;
+	private double impuesto;
+	private double valorTotal;
 	
-	public BoletaCL(String fechaAct, String cliente, String detCobro, int valorNeto, int impuesto, int valorTotal) {
+	public BoletaCL(String fechaAct, String cliente, String detCobro, double valorNeto, double impuesto, double valorTotal) {
 		this.fechaAct = fechaAct;
 		this.cliente = cliente;
 		this.detCobro = detCobro;
@@ -80,7 +80,7 @@ public class BoletaCL extends Boleta {
 		this.detCobro = detCobro;
 	}
 
-	public int getValorNeto() {
+	public double getValorNeto() {
 		return valorNeto;
 	}
 
@@ -88,7 +88,7 @@ public class BoletaCL extends Boleta {
 		this.valorNeto = valorNeto;
 	}
 
-	public int getImpuesto() {
+	public double getImpuesto() {
 		return impuesto;
 	}
 
@@ -96,7 +96,7 @@ public class BoletaCL extends Boleta {
 		this.impuesto = impuesto;
 	}
 
-	public int getValorTotal() {
+	public double getValorTotal() {
 		return valorTotal;
 	}
 
