@@ -1,5 +1,6 @@
 package cl.uach.info090.OvalleLuis;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,15 +21,10 @@ public class BoletaCL extends Boleta {
 		this.valorTotal = valorTotal;
 	}
 	
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	
 	public String toString() {
-		// obtener hora actual para la boleta
-		LocalTime hora = LocalTime.now();
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
-		
-		String valor = String.valueOf(valorTotal);
-		
-		String corta = fechaAct + " " + hora.format(formato) + " " + "$ " + valor;
-		return corta;
+		return String.format("%s    $ %.0f", fechaAct.formatted(FORMATTER), valorTotal);
 	}
 	
 	@Override
@@ -51,57 +47,20 @@ public class BoletaCL extends Boleta {
 		boletaSB.append("\n Valor total: ");
 		boletaSB.append(valorTotal);
 		
-		String boleta = boletaSB.toString();
-		return boleta;
+		return boletaSB.toString();
 	}
 	
-	// GETTERS
 	public String getFechaAct() {
 		return fechaAct;
-	}
-
-	public void setFechaAct(String fechaAct) {
-		this.fechaAct = fechaAct;
 	}
 
 	public String getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
+	public LocalDateTime getFecha() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	public String getDetCobro() {
-		return detCobro;
-	}
-
-	public void setDetCobro(String detCobro) {
-		this.detCobro = detCobro;
-	}
-
-	public double getValorNeto() {
-		return valorNeto;
-	}
-
-	public void setValorNeto(int valorNeto) {
-		this.valorNeto = valorNeto;
-	}
-
-	public double getImpuesto() {
-		return impuesto;
-	}
-
-	public void setImpuesto(int impuesto) {
-		this.impuesto = impuesto;
-	}
-
-	public double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(int valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-	
+ 	
 }
