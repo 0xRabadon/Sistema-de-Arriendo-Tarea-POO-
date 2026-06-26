@@ -1,8 +1,11 @@
 package cl.uach.info090.OvalleLuis;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Construye la boleta y genera la estructura de la boleta
+ * @author Luis Ovalle 
+ */
 
 public class BoletaCL extends Boleta {
 	private String fechaAct;
@@ -26,7 +29,9 @@ public class BoletaCL extends Boleta {
 	public String toString() {
 		return String.format("%s    $ %.0f", fechaAct.formatted(FORMATTER), valorTotal);
 	}
-	
+	/**
+	 * Genera la boleta intentando seguir el estandar de las boletas
+	 */
 	@Override
 	public String detalle() {
 		StringBuilder boletaSB = new StringBuilder();
@@ -58,9 +63,8 @@ public class BoletaCL extends Boleta {
 		return cliente;
 	}
 
-	public LocalDateTime getFecha() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getFecha() {
+		return fechaAct;
 	}
  	
 }

@@ -1,7 +1,9 @@
 package cl.uach.info090.OvalleLuis;
 
 import java.time.LocalDate;
-
+/**
+ * Clase que genera la boleta para Chile (IVA = 19%)
+ */
 public class CreadorBoletaCL implements CreadorBoleta{
 	@Override
 	public Boleta generarBoleta(String cliente, String detalle, double neto) {

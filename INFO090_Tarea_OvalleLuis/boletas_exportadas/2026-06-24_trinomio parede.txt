@@ -1,0 +1,7 @@
+Fecha: 2026-06-24
+Cliente: trinomio parede
+----------------------------------------- 
+Detalle del cobro: kayak para 1 persona
+ Valor Neto: 3000.0
+ Impuesto: 570.0
+ Valor total: 3570.0

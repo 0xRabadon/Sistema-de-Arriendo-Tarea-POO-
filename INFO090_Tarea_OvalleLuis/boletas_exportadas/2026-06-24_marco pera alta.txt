@@ -1,0 +1,7 @@
+Fecha: 2026-06-24
+Cliente: marco pera alta
+----------------------------------------- 
+Detalle del cobro: segway modelo ax2022
+ Valor Neto: 5000.0
+ Impuesto: 950.0
+ Valor total: 5950.0

@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 
+/**
+ * Clase abstracta que plantea el como funcionara el sistema de arriendo para cada vehiculo
+ * @author Luis Ovalle
+ */
 public abstract class Item extends JButton implements Arrendable{
 	private String itemId;
 	private String itemDescription;
@@ -15,6 +19,18 @@ public abstract class Item extends JButton implements Arrendable{
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFinal;
 	private CreadorBoleta creadorBoleta;
+	
+	/**
+	 * Constructor de los Item
+	 * @param itemId Identificador del item
+	 * @param itemDescripcion Descripcion del item
+	 * @param valorHora Costo de arrendarlo por hora
+	 * @param valorBase Costo base del arriendo
+	 * @param arrendado Booleano que corrobora si esta arrendado o no
+	 * @param creadorBoleta Crea la boleta cuando se devuelve el item
+	 * @param cliente Nombre del cliente que arrendo el item
+	 * @param fechaInicio Dia donde comenzo el arriendo
+	 */
 	
 	public Item(String itemId, String itemDescripcion, double valorHora, double valorBase, boolean arrendado, CreadorBoleta creadorBoleta) {
 		super(itemId);
@@ -27,6 +43,10 @@ public abstract class Item extends JButton implements Arrendable{
 		this.cliente = null;
 		this.fechaInicio = null;
 	}
+	
+	/**
+	 * Funcion para arrendar el vehiculo
+	 */
 	
 	@Override
 	public void arrendar(String cliente) {
@@ -42,6 +62,10 @@ public abstract class Item extends JButton implements Arrendable{
 		return arrendado;
 	}
 	@Override
+	
+	/**
+	 * Funcion para devolver el vehiculo y genera boleta
+	 */
 	public Boleta devolver() {
 		if (enArriendo()) {
 			arrendado = false;

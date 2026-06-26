@@ -1,18 +1,36 @@
 package cl.uach.info090.OvalleLuis;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Clase principal que gestiona el Negocio y la Interfaz Gráfica (GUI).
- * Implementa el Patrón Singleton y maneja los eventos de interacción.
+ * Sistema de arriendo de vehiculos, tiene funciones como ver el tiempo prestado de un vehiculo
+ * generar boletas y ver el estado de este. 
+ * @author Luis Ovalle
  * 
- * @author Luis
  */
 public class SistemaArriendo extends JFrame implements ActionListener {
     
@@ -31,21 +49,21 @@ public class SistemaArriendo extends JFrame implements ActionListener {
         listaBoletas = new ArrayList<>();
         itemActual = null;
 
-        setTitle("Sistema de Arriendo de Vehículos");
+        setTitle("Sistema de Arriendo");
         setSize(900, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         getContentPane().setLayout(new BorderLayout(10, 10));
 
-        inicializarComponentes();
-        cargarItemsDesdeCSV();
+        initComponents();
+        cargarCSV();
     }
 
     public static SistemaArriendo getInstance() {
         return sistema;
     }
 
-    private void inicializarComponentes() {
+    private void initComponents() {
         // PANEL DE ITEMS, LA CUADRICULA
         JPanel panelIzquierdo = new JPanel(new BorderLayout(5, 5));
         panelBotonesItems = new JPanel(new GridLayout(4, 4, 8, 8));
@@ -112,10 +130,9 @@ public class SistemaArriendo extends JFrame implements ActionListener {
     }
 
     /**
-     * Lee secuencialmente el set de datos CSV y puebla los botones reactivos en la grilla.
+     * Carga el CSV con los items para luego cargarlo en una cuadricula con solo su ID
      */
-    
-    private void cargarItemsDesdeCSV() {
+    private void cargarCSV() {
         File csvFile = new File("data/item_arriendo.csv");
         if (!csvFile.exists()) {
             JOptionPane.showMessageDialog(this, "No se encontró el archivo de datos en data/items_arriendo.csv", "Error de archivo", JOptionPane.ERROR_MESSAGE);
@@ -154,9 +171,10 @@ public class SistemaArriendo extends JFrame implements ActionListener {
     }
 
     /**
-     * Muestra visualmente las propiedades del ítem seleccionado en el formulario derecho.
-     * @param r El objeto de tipo Item seleccionado.
+     * Muestra las propiedades del objeto Item usado
+     * @param r Objeto de tipo Item seleccionado
      */
+    
     public void mostrarDetallesItem(Item r) {
         if (r == null) {
             identificador.setText(""); desc.setText(""); valorBaseTF.setText("");
@@ -191,19 +209,15 @@ public class SistemaArriendo extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object origen = e.getSource();
-
-        // Clic en algún ítem del catálogo
         if (origen instanceof Item) {
-            // Quitar borde destacado anterior
             if (itemActual != null) itemActual.setBorder(BorderFactory.createEmptyBorder());
             
             itemActual = (Item) origen;
-            itemActual.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3)); // Borde grueso indicador
+            itemActual.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
             mostrarDetallesItem(itemActual);
             return;
         }
 
-        // Clic en el botón dinámico Arrendar / Finalizar
         if (origen == arriendoBoton && itemActual != null) {
             if (!itemActual.enArriendo()) {
                 String clienteIngresado = JOptionPane.showInputDialog(this, "Arrendar ítem " + itemActual.getItemId() + "\n\nCliente:", "Ingreso de Arriendo", JOptionPane.PLAIN_MESSAGE);
@@ -215,7 +229,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
                 Boleta b = itemActual.devolver();
                 if (b != null) {
                     listaBoletas.add(b);
-                    listModelBoletas.insertElementAt(b, 0); // Lo añade al inicio de la lista visual
+                    listModelBoletas.insertElementAt(b, 0);
                     JOptionPane.showMessageDialog(this, b.detalle(), "Boleta Generada", JOptionPane.INFORMATION_MESSAGE);
                 }
                 mostrarDetallesItem(itemActual);
@@ -223,20 +237,18 @@ public class SistemaArriendo extends JFrame implements ActionListener {
             return;
         }
 
-        // Exportar boletas generadas
         if (origen == exportar) {
             if (listaBoletas.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No hay boletas generadas para exportar.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             
-            // Asegurar existencia de carpeta de salida
             File dir = new File("boletas_exportadas");
             if (!dir.exists()) dir.mkdir();
 
             for (Boleta b : listaBoletas) {
                 BoletaCL bcl = (BoletaCL) b;
-                String fechaStr = bcl.getFecha().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmm"));
+                String fechaStr = bcl.getFecha();//.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmm"));
                 String nombreArchivo = "boletas_exportadas/" + fechaStr + "_" + bcl.getCliente().toLowerCase() + ".txt";
                 
                 try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
@@ -250,9 +262,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            SistemaArriendo.getInstance().setVisible(true);
-        });
+    	getInstance();
     }
 }
 

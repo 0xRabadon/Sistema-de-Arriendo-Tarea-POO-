@@ -1,0 +1,7 @@
+Fecha: 2026-06-24
+Cliente: eldiavlo
+----------------------------------------- 
+Detalle del cobro: kayak para 2 persona
+ Valor Neto: 4000.0
+ Impuesto: 760.0
+ Valor total: 4760.0
