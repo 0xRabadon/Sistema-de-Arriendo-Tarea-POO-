@@ -88,7 +88,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
 
         identificador = crearCampo(panelDerecho, "Serie :", xLabel, xField, y, ancho, alto);
         y += separacionY;
-        desc = crearCampo(panelDerecho, "Desc :", xLabel, xField, y, ancho, alto);
+        desc = crearCampo(panelDerecho, "Descripcion :", xLabel, xField, y, ancho, alto);
         y += separacionY;
         valorBaseTF = crearCampo(panelDerecho, "Valor base :", xLabel, xField, y, ancho, alto);
         y += separacionY;
@@ -237,7 +237,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
 
         if (origen == arriendoBoton && itemActual != null) {
             if (!itemActual.enArriendo()) {
-                String clienteIngresado = JOptionPane.showInputDialog(this, "Arrendar ítem " + itemActual.getItemId() + "\n\nCliente:", "Ingreso de Arriendo", JOptionPane.PLAIN_MESSAGE);
+                String clienteIngresado = JOptionPane.showInputDialog(this, "Arrendar item " + itemActual.getItemId() + "\n\nCliente:", "Ingreso de Arriendo", JOptionPane.PLAIN_MESSAGE);
                 if (clienteIngresado != null && !clienteIngresado.trim().isEmpty()) {
                     itemActual.arrendar(clienteIngresado.trim());
                     mostrarDetallesItem(itemActual);
@@ -274,7 +274,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Error al escribir archivo: " + nombreArchivo, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            JOptionPane.showMessageDialog(this, "Boletas exportadas exitosamente en la carpeta 'boletas_exportadas/'.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Boletas exportadas exitosamente en la carpeta 'boletas_exportadas/'.", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

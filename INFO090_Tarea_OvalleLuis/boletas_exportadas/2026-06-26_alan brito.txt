@@ -1,0 +1,7 @@
+Fecha: 2026-06-26
+Cliente: alan brito
+----------------------------------------- 
+Detalle del cobro: kayak para 1 persona
+ Valor Neto: 3000.0
+ Impuesto: 570.0
+ Valor total: 3570.0

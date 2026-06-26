@@ -1,0 +1,7 @@
+Fecha: 2026-06-26
+Cliente: prueba 1
+----------------------------------------- 
+Detalle del cobro: bicicleta de montaña aro 26
+ Valor Neto: 2000.0
+ Impuesto: 380.0
+ Valor total: 2380.0
