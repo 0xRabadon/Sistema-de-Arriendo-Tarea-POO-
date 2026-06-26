@@ -1,7 +1,0 @@
-Fecha: 2026-06-24
-Cliente: alejandro volteretas
------------------------------------------ 
-Detalle del cobro: Kayak para 1 persona
- Valor Neto: 3000.0
- Impuesto: 570.0
- Valor total: 3570.0

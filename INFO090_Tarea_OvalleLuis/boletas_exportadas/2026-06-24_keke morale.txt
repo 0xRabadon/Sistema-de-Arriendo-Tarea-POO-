@@ -1,7 +1,0 @@
-Fecha: 2026-06-24
-Cliente: keke morale
------------------------------------------ 
-Detalle del cobro: bicicleta de montaña aro 26
- Valor Neto: 2000.0
- Impuesto: 380.0
- Valor total: 2380.0

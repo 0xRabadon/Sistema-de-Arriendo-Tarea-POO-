@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -84,32 +83,37 @@ public class SistemaArriendo extends JFrame implements ActionListener {
         JPanel panelDerecho = new JPanel(null);
         panelDerecho.setPreferredSize(new Dimension(420, 500));
         panelDerecho.setBorder(BorderFactory.createEtchedBorder());
-        int xLabel = 20, xField = 140, width = 240, height = 28, yOffset = 35;
+        int xLabel = 20, xField = 140, ancho = 240, alto = 28, separacionY = 35;
         int y = 20;
 
-        identificador = crearCampo(panelDerecho, "Serie :", xLabel, xField, y, width, height); y += yOffset;
-        desc = crearCampo(panelDerecho, "Desc :", xLabel, xField, y, width, height); y += yOffset;
-        valorBaseTF = crearCampo(panelDerecho, "Valor base :", xLabel, xField, y, width, height); y += yOffset;
-        valorHoraTF = crearCampo(panelDerecho, "Valor hora :", xLabel, xField, y, width, height); y += yOffset;
+        identificador = crearCampo(panelDerecho, "Serie :", xLabel, xField, y, ancho, alto);
+        y += separacionY;
+        desc = crearCampo(panelDerecho, "Desc :", xLabel, xField, y, ancho, alto);
+        y += separacionY;
+        valorBaseTF = crearCampo(panelDerecho, "Valor base :", xLabel, xField, y, ancho, alto);
+        y += separacionY;
+        valorHoraTF = crearCampo(panelDerecho, "Valor hora :", xLabel, xField, y, ancho, alto);
+        y += separacionY;
         
-        JLabel lblEstado = new JLabel("Estado :");
-        lblEstado.setBounds(xLabel, y, 100, height);
-        panelDerecho.add(lblEstado);
+        JLabel lbEstado = new JLabel("Estado :");
+        lbEstado.setBounds(xLabel, y, 100, alto);
+        panelDerecho.add(lbEstado);
         estado = new JTextField();
-        estado.setBounds(xField, y, 110, height);
+        estado.setBounds(xField, y, 110, alto);
         estado.setEditable(false);
         panelDerecho.add(estado);
 
         arriendoBoton = new JButton("Arrendar");
-        arriendoBoton.setBounds(xField + 120, y, 120, height);
+        arriendoBoton.setBounds(xField + 120, y, 120, alto);
         arriendoBoton.addActionListener(this);
         panelDerecho.add(arriendoBoton);
-        y += yOffset;
+        y += separacionY;
 
-        clienteTF = crearCampo(panelDerecho, "Cliente :", xLabel, xField, y, width, height); y += yOffset;
-        inicioArriendo = crearCampo(panelDerecho, "Inicio :", xLabel, xField, y, width, height);
+        clienteTF = crearCampo(panelDerecho, "Cliente :", xLabel, xField, y, ancho, alto);
+        y += separacionY;
+        inicioArriendo = crearCampo(panelDerecho, "Inicio :", xLabel, xField, y, ancho, alto);
 
-        // Botones de acción inferiores derechos
+        // BOTON PARA EXPORTAR BOLETAS
         exportar = new JButton("Exportar boletas");
         exportar.setBounds(50, 450, 300, 35);
         exportar.addActionListener(this);
@@ -117,15 +121,26 @@ public class SistemaArriendo extends JFrame implements ActionListener {
 
         getContentPane().add(panelDerecho, BorderLayout.EAST);
     }
-
-    private JTextField crearCampo(JPanel container, String text, int xl, int xf, int y, int w, int h) {
-        JLabel lbl = new JLabel(text);
-        lbl.setBounds(xl, y, 100, h);
-        container.add(lbl);
+    
+/**
+ * Funcion para automatizar la creacion de los TextFields
+ * @param panel Panel donde ira el TextField
+ * @param texto Texto del label
+ * @param xl Coordenada X del Label
+ * @param xTf Coordenada X del TextField
+ * @param y Coordenada Y (tando del Label y del TextField)
+ * @param ancho Ancho del TextField
+ * @param alto Alto del TextField
+ * @return
+ */
+    private JTextField crearCampo(JPanel panel, String texto, int xl, int xTf, int y, int ancho, int alto) {
+        JLabel lb = new JLabel(texto);
+        lb.setBounds(xl, y, 100, alto);
+        panel.add(lb);
         JTextField tf = new JTextField();
-        tf.setBounds(xf, y, w, h);
+        tf.setBounds(xTf, y, ancho, alto);
         tf.setEditable(false);
-        container.add(tf);
+        panel.add(tf);
         return tf;
     }
 
@@ -155,9 +170,12 @@ public class SistemaArriendo extends JFrame implements ActionListener {
 
                 Item nuevoItem;
                 switch (tipo) {
-                    case "bicicleta": nuevoItem = new Bicicleta(id, desc, base, hora, arrendado, creadorBoleta); break;
-                    case "kayak": nuevoItem = new Kayak(id, desc, base, hora,arrendado, creadorBoleta); break;
-                    case "segway": nuevoItem = new Segway(id, desc, base, hora, arrendado, creadorBoleta); break;
+                    case "bicicleta": nuevoItem = new Bicicleta(id, desc, base, hora, arrendado, creadorBoleta);
+                    break;
+                    case "kayak": nuevoItem = new Kayak(id, desc, base, hora,arrendado, creadorBoleta);
+                    break;
+                    case "segway": nuevoItem = new Segway(id, desc, base, hora, arrendado, creadorBoleta);
+                    break;
                     default: continue;
                 }
 
@@ -174,7 +192,6 @@ public class SistemaArriendo extends JFrame implements ActionListener {
      * Muestra las propiedades del objeto Item usado
      * @param r Objeto de tipo Item seleccionado
      */
-    
     public void mostrarDetallesItem(Item r) {
         if (r == null) {
             identificador.setText(""); desc.setText(""); valorBaseTF.setText("");
@@ -248,7 +265,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
 
             for (Boleta b : listaBoletas) {
                 BoletaCL bcl = (BoletaCL) b;
-                String fechaStr = bcl.getFecha();//.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmm"));
+                String fechaStr = bcl.getFecha();
                 String nombreArchivo = "boletas_exportadas/" + fechaStr + "_" + bcl.getCliente().toLowerCase() + ".txt";
                 
                 try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
@@ -262,7 +279,7 @@ public class SistemaArriendo extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-    	getInstance();
+    	SistemaArriendo.getInstance().setVisible(true);
     }
 }
 

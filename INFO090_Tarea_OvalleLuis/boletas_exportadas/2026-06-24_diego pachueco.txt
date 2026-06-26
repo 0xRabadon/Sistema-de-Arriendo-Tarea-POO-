@@ -1,7 +1,0 @@
-Fecha: 2026-06-24
-Cliente: diego pachueco
------------------------------------------ 
-Detalle del cobro: segway premium confort
- Valor Neto: 5000.0
- Impuesto: 950.0
- Valor total: 5950.0
